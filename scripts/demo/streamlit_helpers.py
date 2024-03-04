@@ -756,6 +756,18 @@ def do_img2img(
                     noised_z = noised_z / torch.sqrt(
                         1.0 + sigmas[0] ** 2.0
                     )  # Note: hardcoded to DDPM-like scaling. need to generalize later.
+
+                    # =============================
+                    # DDPM q sampling
+                    # timesteps = 1000  # Total number of timesteps
+                    # linear_start = 1e-4  # Starting value of the linear schedule
+                    # linear_end = 2e-2  # Ending value of the linear schedule
+                    #
+                    # # Setup noise schedule
+                    # sqrt_alphas_cumprod, sqrt_one_minus_alphas_cumprod = setup_noise_schedule(timesteps, linear_start,linear_end)
+                    # t = timesteps * sampler.discretization.strength
+                    # noised_z = q_sample(z, t, sqrt_alphas_cumprod=sqrt_alphas_cumprod, sqrt_one_minus_alphas_cumprod=sqrt_one_minus_alphas_cumprod)
+
                 else:
                     noised_z = z / torch.sqrt(1.0 + sigmas[0] ** 2.0)
 
@@ -776,6 +788,7 @@ def do_img2img(
                 if filter is not None:
                     samples = filter(samples)
 
+                grid = torch.stack([samples])
                 grid = rearrange(grid, "n b c h w -> (n h) (b w) c")
                 outputs.image(grid.cpu().numpy())
                 if return_latents:
@@ -885,3 +898,31 @@ def save_video_as_grid_and_mp4(
         st.video(video_bytes)
 
         base_count += 1
+
+
+# DDPM q_sample 적용
+import torch
+import numpy as np
+from sgm.modules.diffusionmodules.util import extract_into_tensor
+def make_beta_schedule(schedule_type, timesteps, linear_start, linear_end, cosine_s=0.008):
+    if schedule_type == "linear":
+        return np.linspace(linear_start, linear_end, timesteps)
+    else:
+        raise ValueError(f"Unknown schedule type: {schedule_type}")
+
+def setup_noise_schedule(timesteps=1000, linear_start=1e-4, linear_end=2e-2):
+    beta_schedule = "linear"
+    betas = make_beta_schedule(beta_schedule, timesteps, linear_start, linear_end)
+    alphas = 1.0 - betas
+    alphas_cumprod = np.cumprod(alphas, axis=0)
+    sqrt_alphas_cumprod = np.sqrt(alphas_cumprod)
+    sqrt_one_minus_alphas_cumprod = np.sqrt(1.0 - alphas_cumprod)
+    return torch.tensor(sqrt_alphas_cumprod, dtype=torch.float32), torch.tensor(sqrt_one_minus_alphas_cumprod, dtype=torch.float32)
+
+def q_sample(x_start, t, noise=None, sqrt_alphas_cumprod=None, sqrt_one_minus_alphas_cumprod=None):
+    if noise is None:
+        noise = torch.randn_like(x_start)
+    t = int(t)
+    return sqrt_alphas_cumprod[t].to(x_start.device) * x_start + sqrt_one_minus_alphas_cumprod[t].to(x_start.device) * noise
+
+
