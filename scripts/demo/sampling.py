@@ -41,7 +41,7 @@ VERSION2SPECS = {
         "f": 8,
         "is_legacy": False,
         "config": "configs/inference/sd_xl_base.yaml",
-        "ckpt": "/home/gkalstn000/checkpoints/sd_xl_base_1.0.safetensors",
+        "ckpt": "/home/gkalstn000/sdxl/checkpoints/sd_xl_base_1.0.safetensors",
     },
     "SDXL-base-0.9": {
         "H": 1024,
@@ -50,7 +50,7 @@ VERSION2SPECS = {
         "f": 8,
         "is_legacy": False,
         "config": "configs/inference/sd_xl_base.yaml",
-        "ckpt": "/home/gkalstn000/checkpoints/sd_xl_base_0.9.safetensors",
+        "ckpt": "/home/gkalstn000/sdxl/checkpoints/sd_xl_base_0.9.safetensors",
     },
     "SD-2.1": {
         "H": 512,
@@ -59,7 +59,7 @@ VERSION2SPECS = {
         "f": 8,
         "is_legacy": True,
         "config": "configs/inference/sd_2_1.yaml",
-        "ckpt": "/home/gkalstn000/checkpoints/v2-1_512-ema-pruned.safetensors",
+        "ckpt": "/home/gkalstn000/sdxl/checkpoints/v2-1_512-ema-pruned.safetensors",
     },
     "SD-2.1-768": {
         "H": 768,
@@ -68,7 +68,7 @@ VERSION2SPECS = {
         "f": 8,
         "is_legacy": True,
         "config": "configs/inference/sd_2_1_768.yaml",
-        "ckpt": "/home/gkalstn000/checkpoints/v2-1_768-ema-pruned.safetensors",
+        "ckpt": "/home/gkalstn000/sdxl/checkpoints/v2-1_768-ema-pruned.safetensors",
     },
     "SDXL-refiner-0.9": {
         "H": 1024,
@@ -77,7 +77,7 @@ VERSION2SPECS = {
         "f": 8,
         "is_legacy": True,
         "config": "configs/inference/sd_xl_refiner.yaml",
-        "ckpt": "/home/gkalstn000/checkpoints/sd_xl_refiner_0.9.safetensors",
+        "ckpt": "/home/gkalstn000/sdxl/checkpoints/sd_xl_refiner_0.9.safetensors",
     },
     "SDXL-refiner-1.0": {
         "H": 1024,
@@ -86,7 +86,7 @@ VERSION2SPECS = {
         "f": 8,
         "is_legacy": True,
         "config": "configs/inference/sd_xl_refiner.yaml",
-        "ckpt": "/home/gkalstn000/checkpoints/sd_xl_refiner_1.0.safetensors",
+        "ckpt": "/home/gkalstn000/sdxl/checkpoints/sd_xl_refiner_1.0.safetensors",
     },
 }
 

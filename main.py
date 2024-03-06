@@ -132,7 +132,7 @@ def get_parser(**parser_kwargs):
     parser.add_argument(
         "--projectname",
         type=str,
-        default="stablediffusion",
+        default="connectbrick",
     )
     parser.add_argument(
         "-l",
@@ -162,7 +162,7 @@ def get_parser(**parser_kwargs):
         type=str2bool,
         nargs="?",
         const=True,
-        default=False,
+        default=True,
         help="enables the TensorFloat32 format both for matmuls and cuDNN for pytorch 1.12",
     )
     parser.add_argument(
@@ -176,7 +176,7 @@ def get_parser(**parser_kwargs):
         type=str2bool,
         nargs="?",
         const=True,
-        default=False,  # TODO: later default to True
+        default=True,  # TODO: later default to True
         help="log to wandb",
     )
     parser.add_argument(

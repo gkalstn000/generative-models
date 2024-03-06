@@ -33,7 +33,7 @@ class DiffusionEngine(pl.LightningModule):
         ema_decay_rate: float = 0.9999,
         scale_factor: float = 1.0,
         disable_first_stage_autocast=False,
-        input_key: str = "jpg",
+        input_key: str = "image",
         log_keys: Union[List, None] = None,
         no_cond_log: bool = False,
         compile_model: bool = False,

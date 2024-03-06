@@ -10,6 +10,7 @@
           <excludedPaths>
             <excludedPath path="/home/gkalstn000/sdxl/src" />
             <excludedPath path="/home/gkalstn000/sdxl/checkpoints" />
+            <excludedPath path="/home/gkalstn000/sdxl/logs" />
           </excludedPaths>
         </serverdata>
       </paths>

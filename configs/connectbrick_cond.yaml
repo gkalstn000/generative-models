@@ -4,8 +4,9 @@ model:
   params:
     scale_factor: 0.13025
     disable_first_stage_autocast: True
-    log_keys:
-      - cls
+    log_keys: txt
+    input_key: image
+    ckpt_path: "./checkpoints/sd_xl_base_1.0.safetensors"
 
     scheduler_config:
       target: sgm.lr_scheduler.LambdaLinearScheduler
@@ -87,7 +88,6 @@ model:
     first_stage_config:
       target: sgm.models.autoencoder.AutoencoderKL
       params:
-#        ckpt_path: ./checkpoints
         embed_dim: 4
         monitor: val/rec_loss
         ddconfig:
@@ -148,7 +148,7 @@ data:
         postprocessors:
           - target: sdata.mappers.TorchVisionImageTransforms
             params:
-              key: png # USER: you might wanna adapt this for your custom dataset
+              key: image # USER: you might wanna adapt this for your custom dataset
               transforms:
                 - target: torchvision.transforms.Resize
                   params:
@@ -163,11 +163,11 @@ data:
               w_key: 512 # USER: you might wanna adapt this for your custom dataset
 
       loader:
-        batch_size: 12
-        num_workers: 6
+        batch_size: 1
+        num_workers: 1
         prefetch_factor: 2
         shuffle: True
-        size: 512
+        size: 128
 
 lightning:
   modelcheckpoint:
